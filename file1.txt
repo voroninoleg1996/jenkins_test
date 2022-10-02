@@ -16,6 +16,12 @@ pipeline {
                                      sh 'ssh root@mawina_jenkins \'hostname\''
                                 }
                   }
+                  stage("Vtoroy wag")   {
+                          steps {
+                                     sh 'ssh root@mawina_jenkins \'uptime\''
+                                }
+                  }
+
           }
 }
 
