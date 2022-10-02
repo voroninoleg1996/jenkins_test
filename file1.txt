@@ -11,7 +11,7 @@ pipeline {
                   timestamps()
           }
     stages {
-                  stage("Preparations")   {
+                  stage("Perviy wag")   {
                           steps {
                                      sh 'ssh root@mawina_jenkins \'hostname\''
                                 }
