@@ -15,8 +15,9 @@ pipeline {
                   stage("login docker") {
                           steps {
                                      echo "============= login docker =========="
-                              withCredentials([usernamePassword(credentialsID: 'dockerhub_voroninoleg1996', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
-                                                 sh 'docker login -u $USERNAME -p $PASSWORD'
+                             withCredentials([usernamePassword(credentialsID: 'dockerhub_voroninoleg1996', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
+                                                { sh 'docker login -u $USERNAME -p $PASSWORD'
+                                                }
                            }
                   }
                   stage("create docker image")   {
@@ -24,9 +25,9 @@ pipeline {
                                      echo "============= start building image =========="
                                      dir ('docker/toolbox') {
                                                  sh 'docker build -t voroninoleg1996/toolbox:latest . '
+                                     }
                                 }
-                  }
 
-          }
-}
+                  }
+           }
 }
