@@ -16,7 +16,6 @@ pipeline {
                           steps {
                                      echo "============= login docker =========="
                               with Credentials([usernamePassword(credentialsID: 'dockerhub_voroninoleg1996', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                                     dir ('docker/toolbox') {
                                                  sh 'docker login -u $USERNAME -p $PASSWORD'
                                      }
                            }
