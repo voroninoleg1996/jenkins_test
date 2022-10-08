@@ -1,0 +1,33 @@
+#!groovy
+// Check comp1 properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent {
+                  label 'master'
+                  }
+    triggers { pollSCM('* * * * *') }
+    options {
+                  buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+                  timestamps()
+          }
+    stages {
+                  stage("login docker") {
+                          steps {
+                                     echo "============= login docker =========="
+                                     withCredentials([[$class: 'UsernamePasswordMultibinding', credentialsID: '<id>', usernameVariable: '<USERNAME>', passwordVariable: '<PASSWORD>']]){
+                                                sh './script.sh'
+                                                }
+                                }
+                  }
+                  stage("create docker image")   {
+                          steps {
+                                     echo "============= start building image =========="
+                                     dir ('docker/toolbox') {
+                                                 sh 'docker build -t voroninoleg1996/toolbox:latest . '
+                                     }
+                                }
+
+                  }
+           }
+}
